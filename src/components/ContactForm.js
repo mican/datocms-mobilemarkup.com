@@ -23,6 +23,7 @@ function TextInput({ type = "text", name }) {
 const ContactForm = ({ id }) => {
   return (
     <form className={styles.contactForm} name="contact" method="post" data-netlify="true" onSubmit="submit">
+      <input type="hidden" name="form-name" value="contact" />
       <TextInput name="name" />
       <TextInput name="email" type="email" />
       <TextInput name="message" type="textarea" />
