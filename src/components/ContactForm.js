@@ -18,7 +18,7 @@ function TextInput({ type = "text", name }) {
 
 const ContactForm = ({ id }) => {
   return (
-    <form className={styles.contactForm} name="contact" netlify>
+    <form className={styles.contactForm} name="contact" method="POST" netlify>
       <TextInput name="name" />
       <TextInput name="email" type="email" />
       <TextInput name="message" type="textarea" />
