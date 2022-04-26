@@ -5,6 +5,7 @@ module.exports = {
     title: "Gatsby Blog Demo",
   },
   plugins: [
+    "gatsby-plugin-sass",
     "gatsby-plugin-postcss",
     {
       resolve: "gatsby-source-datocms",

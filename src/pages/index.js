@@ -1,68 +1,31 @@
-import React from "react";
-import Container from "../components/container";
-import HeroPost from "../components/hero-post";
-import Intro from "../components/intro";
-import MoreStories from "../components/more-stories";
-import { HelmetDatoCms } from "gatsby-source-datocms";
-import { graphql } from "gatsby";
+import * as React from "react";
+import { Link } from "gatsby";
 
-export default function Index({ data: { allPosts, site, blog } }) {
-  const heroPost = allPosts.nodes[0];
-  const morePosts = allPosts.nodes.slice(1);
+import Layout from "../components/layout";
 
+import * as styles from "../styles/main-page.module.sass";
+
+const IndexPage = () => {
   return (
-    <Container>
-      <HelmetDatoCms seo={blog.seo} favicon={site.favicon} />
-      <Intro />
-      {heroPost && (
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
-        />
-      )}
-      {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-    </Container>
+    <Layout>
+      <section className={styles.about}>
+        <div className="container">
+          <h1 className={styles.title}>
+            <span className={styles.t1}>Responsive &amp; responsible</span>
+            <span className={styles.t2}>web development with edge</span>
+            <span className={styles.t3}>solutions and great performance</span>
+          </h1>
+          <div className={styles.actions}>
+            <Link to="/contact" className={styles.button}>
+              Get in touch
+            </Link>
+            {/* <span>or see</span>
+            <a href="#portfolio">our projects</a> */}
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
-}
+};
 
-export const query = graphql`
-  {
-    site: datoCmsSite {
-      favicon: faviconMetaTags {
-        ...GatsbyDatoCmsFaviconMetaTags
-      }
-    }
-    blog: datoCmsBlog {
-      seo: seoMetaTags {
-        ...GatsbyDatoCmsSeoMetaTags
-      }
-    }
-    allPosts: allDatoCmsPost(sort: { fields: date, order: DESC }, limit: 20) {
-      nodes {
-        title
-        slug
-        excerpt
-        date
-        coverImage {
-          large: gatsbyImageData(width: 1500)
-          small: gatsbyImageData(width: 760)
-        }
-        author {
-          name
-          picture {
-            gatsbyImageData(
-              layout: FIXED
-              width: 48
-              height: 48
-              imgixParams: { sat: -100 }
-            )
-          }
-        }
-      }
-    }
-  }
-`;
+export default IndexPage;

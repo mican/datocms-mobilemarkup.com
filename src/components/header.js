@@ -1,13 +1,32 @@
-import React from "react";
-import { Link } from 'gatsby'
+import * as React from "react";
+import { Link, withPrefix } from "gatsby";
 
-export default function Header() {
+import * as styles from "../styles/header.module.sass";
+
+const Header = ({ siteTitle }) => {
   return (
-    <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8">
-      <Link to="/" className="hover:underline">
-        Blog
-      </Link>
-      .
-    </h2>
-  )
-}
+    <header className={styles.header}>
+      <div className="container">
+        <nav className={styles.navigation}>
+          <Link to="/">
+            <img src={withPrefix("/mobilemarkup-logo.svg")} alt={siteTitle} />
+          </Link>
+          <ul>
+            <li>
+              <Link to="/about" activeClassName={styles.linkActive}>
+                About
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" activeClassName={styles.linkActive}>
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
