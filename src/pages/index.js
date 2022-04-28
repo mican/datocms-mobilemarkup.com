@@ -24,9 +24,9 @@ export default function IndexPage({ data: { allProjects, site } }) {
           </div>
         </div>
       </section>
-      <section className={styles.blockProjects}>
+      {/* <section className={styles.blockProjects}>
         <div className="container"></div>
-      </section>
+      </section> */}
     </Layout>
   );
 }
