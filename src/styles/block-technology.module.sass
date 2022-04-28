@@ -1,0 +1,146 @@
+.block-technology
+  display: flex
+  flex-flow: row wrap
+  justify-content: center
+  @apply py-24 pt-48
+
+  // pointer-events: none
+  // > *
+  //   pointer-events: auto
+
+  // &:hover
+  //   [class*=image], [class*=name]
+  //     transform: scale(.8)
+  //     &:before
+  //       transform: scale(1.25)
+
+
+// .blockTechnology
+//   min-height: 50vh
+
+//   flex: auto 0
+//   text-align: center
+//   box-sizing: border-box
+//   position: relative
+
+//   &:hover [class*=popup] li
+//     opacity: 1
+//     transform: translate(0,0)
+//     @each $i in 1, 2, 3, 4
+//       &:nth-child(#{$i})
+//         transition-delay: .1s * ($i - 1)
+
+.primary
+  flex-basis: 100%
+  > span
+    display: none
+
+
+.techCollection
+  display: flex
+  flex-flow: row wrap
+  align-items: center
+  justify-content: center
+  list-style-type: none
+  margin: 0
+  padding: 0
+  li
+    flex: auto 0
+    margin: 1em 2em
+
+
+.tech-name, .item-tech-name
+  display: block
+  padding: 1.25em
+  font-size: 2.5em
+  font-weight: bold
+  line-height: 1
+  user-select: none
+
+// .item-tech-name
+//   display: block
+//   padding: .25em
+//   font-size: 1em
+//   font-weight: bold
+
+.tech-label
+  user-select: none
+  color: #666
+
+.tech-collection-expanded
+  display: flex
+  flex-flow: row wrap
+  list-style-type: none
+  margin: 0
+  padding: 0
+  img
+    height: 48px
+    width: auto
+    margin: 0 1rem
+
+
+// .tech-collection-popup
+//   pointer-events: none
+//   position: absolute
+//   bottom: 0
+//   left: 50%
+//   transform: translate(-50%, 0)
+//   text-align: center
+//   list-style-type: none
+//   margin: 0
+//   padding: 0
+//   white-space: nowrap
+//   li, span
+//     display: inline-block
+//     padding: 0
+//   span
+//     font-size: .75em
+//     padding: 0
+//   li
+//     opacity: 0
+//     transform: translate(0, .25em)
+//     transition: .15s
+//     @each $i in 1, 2, 3, 4
+//       &:nth-child(#{$i})
+//         transition-delay: .1s * ($i - 1)
+
+//     + li
+//       margin-left: 1em
+
+
+.tech-item
+
+.tech-brick
+  position: relative
+//   transition: all .15s linear
+//   &:before
+//     content: ''
+//     position: absolute
+//     top: 0
+//     left: 0
+//     right: 0
+//     bottom: 0
+//     background-color: #ccc
+//     transition: all .15s linear
+
+
+.tech-label
+  // composes: tech-brick
+  font-size: 1.5em
+  line-height: 1
+  font-weight: 500
+  padding: 1.5em
+  display: block
+
+.tech-image
+  // composes: tech-brick
+  display: inline-flex
+  vertical-align: middle
+  height: 64px
+  width: auto
+  filter: grayscale(100%)
+  svg
+    height: 100%
+    width: auto
+  &:hover
+    filter: none

@@ -1,8 +1,11 @@
 .header
-  margin: 2em 0
-
+  @apply h-24 flex absolute align-middle top-0 right-0 left-0
   h1
     margin: 0
+
+  + *
+    padding: 10vh 0
+    box-sizing: border-box
 
 .navigation
   display: flex
@@ -10,6 +13,7 @@
   justify-content: space-between
   align-items: center
   color: #ccc
+  height: 100%
 
 
   ul

@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 
 import Layout from "../components/layout";
 
-import * as styles from "../styles/main-page.module.sass";
+import * as styles from "../styles/page-home.module.sass";
 
-const IndexPage = () => {
+export default function IndexPage({ data: { allProjects, site } }) {
   return (
     <Layout>
-      <section className={styles.about}>
+      <section className={styles.blockHome}>
         <div className="container">
           <h1 className={styles.title}>
             <span className={styles.t1}>Responsive &amp; responsible</span>
@@ -24,8 +24,25 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
+      <section className={styles.blockProjects}>
+        <div className="container"></div>
+      </section>
     </Layout>
   );
-};
+}
 
-export default IndexPage;
+export const query = graphql`
+  {
+    site: datoCmsSite {
+      favicon: faviconMetaTags {
+        ...GatsbyDatoCmsFaviconMetaTags
+      }
+    }
+    allProjects: allDatoCmsProject {
+      nodes {
+        name
+        id
+      }
+    }
+  }
+`;
