@@ -7,11 +7,12 @@ import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
 
 import "normalize.css";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import "../styles/layout.sass";
 
-const Layout = ({ children, className }) => {
+const Layout = ({ children, className, scrollRef }) => {
   return (
-    <main className={className}>
+    <main className={className} ref={scrollRef}>
       <Header />
       {children}
     </main>

@@ -1,2 +1,48 @@
-.projects
-  border: 1px solid red
+.blockProjects
+  height: 100vh
+  // background: linear-gradient(to right, #360033, #0b8793)
+  // background: linear-gradient(to right, #6441a5, #2a0845)
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364)
+  overflow: hidden
+  display: flex
+  left: 0
+  user-select: none
+
+.projectsCollection
+  list-style-type: none
+  margin: 0
+  height: 100vh
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  padding: 50px 10vw
+  box-sizing: border-box
+
+.projectItem
+  width: 50vw
+  height: 60vh
+  margin: 0 10vw
+  position: relative
+
+.project-images
+  width: 100%
+  height: 100%
+  overflow: hidden
+
+.projectImage
+  &:not(:first-child)
+    display: none
+
+.projectName
+  font-size: 5em
+  white-space: nowrap
+  // color: white
+  position: absolute
+  right: -2.5rem
+  top: 0
+  transform: translate(0,-55%)
+  z-index: 2000
+  margin: 0
+
+  @apply inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-blue-500
+  text-shadow: 0 2px 4px rgba(0,0,0,0.10)

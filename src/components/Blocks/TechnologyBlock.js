@@ -16,7 +16,9 @@ const TechnologyBlock = ({ technologies }) => (
                 {/* <span className={styles.techLabel}>{tech.name}</span> */}
                 <ul className={styles.techCollection}>
                   {tech.collection.map((t) => (
-                    <li className={styles.techItem}>{t.image ? <Image className={styles.techImage} image={t.image} /> : <span className={styles.itemTechName}>{t.name}</span>}</li>
+                    <li key={t.id} className={styles.techItem}>
+                      {t.image ? <Image className={styles.techImage} image={t.image} /> : <span className={styles.itemTechName}>{t.name}</span>}
+                    </li>
                   ))}
                 </ul>
               </>

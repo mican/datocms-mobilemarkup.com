@@ -27,6 +27,11 @@ body
   -ms-font-feature-settings: "kern", "liga", "clig", "calt"
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt"
   font-feature-settings: "kern", "liga", "clig", "calt"
+  overflow-x: hidden
+  max-width: 100%
+  width: 100%
+  overscroll-behavior: none
+
 
   a
     color: inherit
@@ -37,3 +42,16 @@ body
   margin: 0 auto
   padding: 0 1.25rem
   box-sizing: border-box
+
+
+// html.has-scroll-smooth
+//   backface-visibility: hidden
+//   transform: translateZ(0)
+
+// [data-load-container]
+//   position: fixed
+//   top: 0
+//   right: 0
+//   bottom: 0
+//   left: 0
+//   width: 100vw
