@@ -1,5 +1,6 @@
-import TeamBlock from "./TeamBlock.js";
-import TechnologyBlock from "./TechnologyBlock.js";
-import ProjectsBlock from "./ProjectsBlock.js";
+import TeamBlock from "./TeamBlock";
+import TechnologyBlock from "./TechnologyBlock";
+import ProjectsBlock from "./ProjectsBlock";
+import HomeBlock from "./HomeBlock";
 
-export { TeamBlock, TechnologyBlock, ProjectsBlock };
+export { TeamBlock, TechnologyBlock, ProjectsBlock, HomeBlock };

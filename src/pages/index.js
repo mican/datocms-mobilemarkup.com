@@ -2,20 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import locomotiveScroll from "locomotive-scroll";
-import { ProjectsBlock } from "../components/Blocks";
+import { ProjectsBlock, HomeBlock } from "../components/Blocks";
 
 import { Link, graphql } from "gatsby";
 
 import Layout from "../components/layout";
 
-import * as styles from "../styles/page-home.module.sass";
-
-gsap.registerPlugin(ScrollTrigger);
-
 export default function IndexPage({ data: { projects, site } }) {
   const scrollRef = React.createRef();
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const scroller = new locomotiveScroll({
       el: scrollRef.current,
       smooth: true,
@@ -37,7 +34,6 @@ export default function IndexPage({ data: { projects, site } }) {
     });
     window.addEventListener("load", function () {
       let pinWrap = document.querySelector("#projectsWrapper");
-      console.log(pinWrap);
       let pinWrapWidth = pinWrap.offsetWidth;
       let horizontalScrollLength = pinWrapWidth - window.innerWidth;
       // Pinning and horizontal scrolling
@@ -47,7 +43,7 @@ export default function IndexPage({ data: { projects, site } }) {
           scrub: true,
           trigger: "#blockProjects",
           pin: true,
-          anticipatePin: 1,
+          // anticipatePin: 1,
           start: "top top",
           end: pinWrapWidth,
         },
@@ -60,22 +56,8 @@ export default function IndexPage({ data: { projects, site } }) {
   });
   return (
     <Layout scrollRef={scrollRef}>
-      <section className={styles.blockHome}>
-        <div className="container">
-          <h1 className={styles.title}>
-            <span className={styles.t1}>Responsive &amp; responsible</span>
-            <span className={styles.t2}>web development with edge</span>
-            <span className={styles.t3}>solutions and great performance</span>
-          </h1>
-          <div className={styles.actions}>
-            <Link to="/contact" className={styles.button}>
-              Get in touch
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeBlock />
       <ProjectsBlock projects={projects.nodes} />
-      <section className={styles.blockFooter}></section>
     </Layout>
   );
 }
