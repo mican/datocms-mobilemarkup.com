@@ -6918,6 +6918,11 @@ graphql@^15.7.2:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
 
+gsap-trial@^3.10.4:
+  version "3.10.4"
+  resolved "https://registry.yarnpkg.com/gsap-trial/-/gsap-trial-3.10.4.tgz#9c7db61d6c3c3a12378f6059cc59e09d70282032"
+  integrity sha512-N0XUF1DNsFETK2cJjJl4ZmNRRCx8N2L/QguDEXnSTX9WFJ3hAzBaZfsmR66QKLrIWB7uI8njHnalI3e3Gy276g==
+
 gsap@^3.10.4:
   version "3.10.4"
   resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.10.4.tgz#db89a6b8f6d5cb76e274eae822cbc1aa4d31e88f"
