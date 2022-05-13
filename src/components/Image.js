@@ -16,7 +16,7 @@ export default function Image({ image, className }) {
     return <img className={classNames(styles.image, className)} src={image.url} alt={image.title} />;
   }
   if (image.gatsbyImageData) {
-    return <GatsbyImage className={classNames(styles.image, className)} image={getImage(image)} alt={image.title} />;
+    return <GatsbyImage className={classNames("image", styles.image, className)} image={getImage(image)} alt={image.title} />;
   }
 
   // console.log(image);

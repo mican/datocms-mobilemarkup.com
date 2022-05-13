@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { gsap, ScrollTrigger, ScrollSmoother } from "gsap-trial/all";
+import { gsap, ScrollTrigger } from "gsap-trial/all";
 import { ProjectsBlock, HomeBlock } from "../components/Blocks";
 
 import { Link, graphql } from "gatsby";
@@ -7,13 +7,10 @@ import { Link, graphql } from "gatsby";
 import Layout from "../components/layout";
 
 export default function IndexPage({ data: { projects, site } }) {
-  const scrollRef = React.createRef();
-
   useEffect(() => {
     let pinWrap = document.querySelector("#projectsWrapper");
     let horizontalScrollLength = pinWrap.offsetWidth - window.innerWidth;
-    // Pinning and horizontal scrolling
-    gsap.to("#projectsWrapper", {
+    let horizontalProjects = gsap.to("#projectsWrapper", {
       scrollTrigger: {
         scrub: true,
         trigger: "#blockProjects",
@@ -24,8 +21,23 @@ export default function IndexPage({ data: { projects, site } }) {
       x: -horizontalScrollLength,
       ease: "none",
     });
+
     ScrollTrigger.refresh();
-  });
+
+    // gsap.to(".project-name", {
+    //   scrollTrigger: {
+    //     containerAnimation: horizontalProjects,
+    //     trigger: ".project-name",
+    //     toggleActions: "play none none reverse",
+    //     // horizontal: true,
+    //     toggleClass: "animated",
+    //     scrub: true,
+    //     markers: true,
+    //   },
+    //   duration: 3,
+    //   x: -100,
+    // });
+  }, []);
   return (
     <Layout>
       <HomeBlock />
@@ -41,11 +53,12 @@ export const query = graphql`
         ...GatsbyDatoCmsFaviconMetaTags
       }
     }
-    projects: allDatoCmsProject {
+    projects: allDatoCmsProject(sort: { order: DESC, fields: meta___updatedAt }) {
       nodes {
         name
         video {
-          url
+          providerUid
+          title
         }
         images {
           gatsbyImageData
