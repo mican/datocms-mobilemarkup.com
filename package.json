@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-blog-demo",
+  "name": "mobileMarkup portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Gatsby Blog Demo",
-  "author": "Stefano Verna",
+  "description": "Portfolio of Michał Niewitała (front-end developer) and Przemek Maczewski (WordPress developer). Enjoy :)",
+  "author": "Michał Niewitała",
   "keywords": [
     "gatsby"
   ],

@@ -15,6 +15,7 @@ export default function IndexPage({ data: { projects, site } }) {
         scrub: true,
         trigger: "#blockProjects",
         pin: true,
+        anticipatePin: 1,
         start: "top top",
         end: () => "+=" + horizontalScrollLength,
       },

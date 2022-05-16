@@ -6,24 +6,38 @@ import "flickity/css/flickity.css";
 // import "flickity-fade/flickity-fade.css";
 
 const Slider = ({ children }) => {
-  const flkty = useRef(null);
-
+  const flickityInstance = useRef(null);
   const flickityOptions = {
-    // autoPlay: true,
-    fade: true,
+    autoPlay: false,
+    // pauseAutoPlayOnHover: false,
     pageDots: false,
     prevNextButtons: false,
-    wrap: true,
+    freeScroll: false,
+    wrapAround: false,
   };
   useEffect(() => {
     const docStyle = document.documentElement.style;
     const transformProp = typeof docStyle.transform === "string" ? "transform" : "WebkitTransform";
-    flkty.current.on("scroll", () =>
-      flkty.current.slides.forEach(function (slide, i) {
-        const img = flkty.current.cells[i].element.querySelector(".image");
-        const x = ((slide.target + flkty.current.x) * -1) / 3;
-        const s = slide.target + flkty.current.x;
-        return (img.style[transformProp] = `translateX(${x}px) scale(1)`);
+    const flkty = flickityInstance.current;
+
+    flkty.on("staticClick", function (event, pointer, cellElement, cellIndex) {
+      if (!cellElement) {
+        return;
+      }
+      if (cellIndex == flkty.selectedIndex) {
+        flkty.next();
+      } else {
+        flkty.select(cellIndex);
+      }
+    });
+
+    flkty.on("scroll", () =>
+      flkty.slides.forEach(function (slide, i) {
+        const img = flkty.cells[i].element.querySelector(".image");
+        const x = ((slide.target + flkty.x) * -1) / 3;
+
+        // const s = slide.target + flkty.current.x;
+        return (img.style[transformProp] = `translateX(${x}px)`);
       })
     );
   }, []);
@@ -31,7 +45,7 @@ const Slider = ({ children }) => {
   return (
     <Flickity
       flickityRef={(carouselRef) => {
-        flkty.current = carouselRef;
+        flickityInstance.current = carouselRef;
       }}
       options={flickityOptions}
     >
