@@ -6,19 +6,20 @@
   // position: fixed
   position: sticky
   top: 0
-  z-index: -1
+  z-index: 0
 
 
 .title
-  font-weight: bold
-  font-size: 2em
-  line-height: 1.5
+  // font-weight: bold
+  // font-size: 2em
+  // line-height: 1.5
   font-family: Poppins, sans-serif
   // position: sticky
   // top: 0
-  margin-bottom: .5em
+  @apply text-base md:text-3xl md:leading-normal mb-5
   span
     display: block
+    white-space: nowrap
 
 .t1
   font-weight: 500
@@ -36,7 +37,6 @@
   align-items: center
   align-content: center
 
-
   a:not([class])
     color: inherit
     text-decoration: underline
@@ -53,6 +53,7 @@
   // background-color: #FF3838
   color: white
   font-weight: 500
-  font-size: 1.125em
+  // font-size: 1.125em
   cursor: pointer
   text-decoration: none
+  @apply text-base md:text-lg

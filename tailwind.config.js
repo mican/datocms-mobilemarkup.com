@@ -19,10 +19,11 @@ module.exports = {
         tight: 1.2,
       },
       fontSize: {
+        "2xl": "1.5rem",
+        "3xl": "1.75rem",
+        "4xl": "2rem",
         "5xl": "2.5rem",
-        "6xl": "2.75rem",
-        "7xl": "4.5rem",
-        "8xl": "6.25rem",
+        "6xl": "3rem",
       },
       boxShadow: {
         small: "0 5px 10px rgba(0, 0, 0, 0.12)",

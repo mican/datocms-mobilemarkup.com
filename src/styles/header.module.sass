@@ -1,5 +1,6 @@
 .header
   @apply h-24 flex align-middle top-0 right-0 left-0 fixed
+  z-index: 1
   h1
     margin: 0
 
@@ -9,7 +10,7 @@
   flex-flow: row wrap
   justify-content: space-between
   align-items: center
-  color: #ccc
+  color: #aaa
   height: 100%
 
 
@@ -20,6 +21,11 @@
   li + li
     margin-left: 1.5em
 
+  a
+    transition: all .25s ease
+
+  a:hover
+    color: black
 
 .link-active
   color: black

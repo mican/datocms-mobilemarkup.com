@@ -1,14 +1,16 @@
 .blockProjects
-  height: 100vh
   // margin-top: 100vh
   // background: linear-gradient(to right, #360033, #0b8793)
   // background: linear-gradient(to right, #6441a5, #2a0845)
   // background: linear-gradient(to right, #0f2027, #203a43, #2c5364)
   overflow: hidden
-  display: flex
   left: 0
   box-sizing: border-box
   background-color: #252423
+  position: relative
+  z-index: 2
+  @apply lg:h-screen lg:flex
+
   // user-select: none
   // &:before
   //   content: ''
@@ -25,26 +27,26 @@
 .projectsCollection
   list-style-type: none
   margin: 0
-  height: 100vh
-  display: flex
+  // display: flex
   justify-content: flex-start
   align-items: center
   // padding: 50px 10vw
   box-sizing: border-box
+  @apply lg:h-screen lg:flex py-20 px-5 lg:px-0
 
-$siteMargin: calc( (100vw - 60rem) / 2 )
-$projectMargin: calc( (100vw - 60rem) / 4 - 3rem )
+\:root
+
+  --siteMargin: calc( (100vw - 60rem) / 2 )
+  --projectMargin: calc( (100vw - 60rem) / 4 - 3rem )
 
 .projectItem
-  width: 112vh
-  height: 63vh
-  margin: 0 $projectMargin
-  position: relative
-  user-select: none
+  @apply  lg:w-[112vmin] lg:h-[63vmin] lg:py-0 lg:mx-[var(--projectMargin)] relative select-none
   &:first-child
-    margin-left: $siteMargin
+    @apply lg:ml-[var(--siteMargin)]
   &:last-child
-    margin-right: $siteMargin
+    @apply lg:mr-[var(--siteMargin)]
+  + *
+    @apply mt-20 lg:mt-0
 
 .projectImages, .projectVideo
   width: 100%
@@ -53,11 +55,16 @@ $projectMargin: calc( (100vw - 60rem) / 4 - 3rem )
   border-radius: 5px
   // transform-style: preserve-3d
 
+.projectImages
+  @apply w-full aspect-video
+
+
 .projectVideo
   // pointer-events: none
 
 .projectName
-  font-size: 5em
+  @apply text-4xl lg:text-7xl leading-normal
+  // font-size: 5em
   white-space: nowrap
   color: #F6F4F2
   position: absolute
@@ -66,7 +73,8 @@ $projectMargin: calc( (100vw - 60rem) / 4 - 3rem )
   text-align: center
   top: -.8em
   font-weight: bold
-  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31
+  // text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31
+  text-shadow: 0 .2em .25em #2e2e31, 0 .4em .6em #2e2e31
 
 
   // @apply inline-block text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-fuchsia-500

@@ -10,17 +10,24 @@ export default function IndexPage({ data: { projects, site } }) {
   useEffect(() => {
     let pinWrap = document.querySelector("#projectsWrapper");
     let horizontalScrollLength = pinWrap.offsetWidth - window.innerWidth;
-    let horizontalProjects = gsap.to("#projectsWrapper", {
-      scrollTrigger: {
-        scrub: true,
-        trigger: "#blockProjects",
-        pin: true,
-        anticipatePin: 1,
-        start: "top top",
-        end: () => "+=" + horizontalScrollLength,
+
+    ScrollTrigger.matchMedia({
+      "(min-width: 1024px)": function () {
+        // setup animations and ScrollTriggers for screens over 800px wide (desktop) here...
+        // ScrollTriggers will be reverted/killed when the media query doesn't match anymore.
+        gsap.to("#projectsWrapper", {
+          scrollTrigger: {
+            scrub: true,
+            trigger: "#blockProjects",
+            pin: true,
+            anticipatePin: 1,
+            start: "top top",
+            end: () => "+=" + horizontalScrollLength,
+          },
+          x: -horizontalScrollLength,
+          ease: "none",
+        });
       },
-      x: -horizontalScrollLength,
-      ease: "none",
     });
 
     ScrollTrigger.refresh();
