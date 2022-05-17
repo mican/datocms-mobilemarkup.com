@@ -24,6 +24,8 @@ module.exports = {
         "4xl": "2rem",
         "5xl": "2.5rem",
         "6xl": "3rem",
+        "7xl": "4rem",
+        "8xl": "5rem",
       },
       boxShadow: {
         small: "0 5px 10px rgba(0, 0, 0, 0.12)",
