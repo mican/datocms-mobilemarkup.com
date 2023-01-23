@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import * as styles from "../styles/contact-form.module.sass";
+import React, { useState } from 'react'
+import * as styles from '../styles/contact-form.module.sass'
 
-function TextInput({ type = "text", name }) {
-  const [value, setValue] = useState("");
-  var label = name.charAt(0).toUpperCase() + name.slice(1);
+function TextInput({ type = 'text', name }) {
+  const [value, setValue] = useState('')
+  var label = name.charAt(0).toUpperCase() + name.slice(1)
 
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
+  const handleInput = e => {
+    setValue(e.target.value)
+  }
 
   return (
-    <p className={styles.field + (value && " active")}>
+    <p className={styles.field + (value && ' active')}>
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
-      {type === "textarea" && <textarea className={styles.textarea} cols="50" rows="4" name={name} id={name} onChange={handleInput}></textarea>}
-      {type !== "textarea" && <input className={styles.textInput} type={type} name={name} id={name} onChange={handleInput} required />}
+      {type === 'textarea' ? (
+        <textarea className={styles.textarea} cols="50" rows="4" name={name} id={name} onChange={handleInput}></textarea>
+      ) : (
+        <input className={styles.textInput} type={type} name={name} id={name} onChange={handleInput} required />
+      )}
     </p>
-  );
+  )
 }
 
-const ContactForm = ({ id }) => {
+export default function ContactForm({ id }) {
   return (
     <form className={styles.contactForm} name="contact" method="post" data-netlify="true" onSubmit="submit">
       <input type="hidden" name="form-name" value="contact" />
@@ -33,7 +36,5 @@ const ContactForm = ({ id }) => {
         </button>
       </p>
     </form>
-  );
-};
-
-export default ContactForm;
+  )
+}
