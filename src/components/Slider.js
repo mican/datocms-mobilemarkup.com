@@ -34,7 +34,7 @@ const Slider = ({ children }) => {
     flkty.on("scroll", () =>
       flkty.slides.forEach(function (slide, i) {
         const img = flkty.cells[i].element.querySelector(".image");
-        const x = ((slide.target + flkty.x) * -1) / 3;
+        const x = ((slide.target + flkty.x) * -1) / 2;
 
         // const s = slide.target + flkty.current.x;
         return (img.style[transformProp] = `translateX(${x}px)`);
