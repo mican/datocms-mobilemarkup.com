@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 import Flickity from 'react-flickity-component'
+// import fade from "flickity-fade";
 
 import 'flickity/css/flickity.css'
+// import "flickity-fade/flickity-fade.css";
 
-export default function Slider({ children }) {
+const Slider = ({ children }) => {
   const flickityInstance = useRef(null)
   const flickityOptions = {
     autoPlay: false,
@@ -34,6 +36,7 @@ export default function Slider({ children }) {
         const img = flkty.cells[i].element.querySelector('.image')
         const x = ((slide.target + flkty.x) * -1) / 3
 
+        // const s = slide.target + flkty.current.x;
         return (img.style[transformProp] = `translateX(${x}px)`)
       })
     )
@@ -41,14 +44,14 @@ export default function Slider({ children }) {
 
   return (
     <Flickity
-      flickityRef={ref => {
-        flickityInstance.current = ref
+      flickityRef={carouselRef => {
+        flickityInstance.current = carouselRef
       }}
       options={flickityOptions}
-      reloadOnUpdate
-      static
     >
       {children}
     </Flickity>
   )
 }
+
+export default Slider
