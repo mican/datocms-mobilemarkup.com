@@ -3,10 +3,12 @@ import * as styles from '../styles/contact-form.module.sass'
 
 function TextInput({ type = 'text', name, required }) {
   const [value, setValue] = useState('')
+  const [v, setV] = useState('')
   var label = name.charAt(0).toUpperCase() + name.slice(1)
 
   const handleInput = e => {
-    setValue(e.target.value)
+    setValue('value ' + e.target.value)
+    setV('v ' + e.target.value)
   }
 
   return (
