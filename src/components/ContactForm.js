@@ -25,7 +25,7 @@ function TextInput({ type = 'text', name, required }) {
 export default function ContactForm({ id }) {
   return (
     <form className={styles.contactForm} name="contact" enctype="multipart/form-data" data-netlify="true" onSubmit="submit">
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value="Test" />
       <TextInput name="name" />
       <TextInput name="email" type="email" required />
       <TextInput name="message" type="textarea" required />
