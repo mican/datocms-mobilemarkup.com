@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import * as styles from '../styles/contact-form.module.sass'
 
 function TextInput({ type = 'text', name, required }) {
-  const [value, setValue] = useState('')
+  const [v, setV] = useState('')
   var label = name.charAt(0).toUpperCase() + name.slice(1)
 
   const handleInput = e => {
-    setValue(e.target.value)
+    setV(e.target.value)
   }
 
   return (
-    <p className={styles.field + (value && ' active')}>
+    <p className={styles.field + (v && ' active')}>
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
