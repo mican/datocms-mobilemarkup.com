@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import * as styles from '../styles/contact-form.module.sass'
 
 function TextInput({ type = 'text', name, required }) {
-  const [v, setV] = useState('')
+  const [value, setValue] = useState('')
   var label = name.charAt(0).toUpperCase() + name.slice(1)
 
   const handleInput = e => {
-    setV(e.target.value)
+    setValue(e.target.value)
   }
 
   return (
-    <p className={styles.field + (v && ' active')}>
+    <p className={styles.field + (value && ' active')}>
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
@@ -27,7 +27,7 @@ export default function ContactForm({ id }) {
       <TextInput name="name" />
       <TextInput name="email" type="email" required />
       <TextInput name="message" type="textarea" required />
-      <TextInput name="file" type="file" required />
+      {/* <TextInput name="file" type="file" required /> */}
 
       <p className={styles.field}>
         <button className={styles.button} type="submit">
