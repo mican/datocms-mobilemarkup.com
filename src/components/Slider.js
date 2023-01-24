@@ -16,29 +16,27 @@ export default function Slider({ children }) {
   useEffect(() => {
     const docStyle = document.documentElement.style
     const transformProp = typeof docStyle.transform === 'string' ? 'transform' : 'WebkitTransform'
-    // const flkty = flickityInstance.current
+    const flkty = flickityInstance.current
 
-    console.log(flickityInstance.current)
+    flkty.on('staticClick', function (event, pointer, cellElement, cellIndex) {
+      if (!cellElement) {
+        return
+      }
+      if (cellIndex == flkty.selectedIndex) {
+        flkty.next()
+      } else {
+        flkty.select(cellIndex)
+      }
+    })
 
-    // flkty.on('staticClick', function (event, pointer, cellElement, cellIndex) {
-    //   if (!cellElement) {
-    //     return
-    //   }
-    //   if (cellIndex == flkty.selectedIndex) {
-    //     flkty.next()
-    //   } else {
-    //     flkty.select(cellIndex)
-    //   }
-    // })
+    flkty.on('scroll', () =>
+      flkty.slides.forEach(function (slide, i) {
+        const img = flkty.cells[i].element.querySelector('.image')
+        const x = ((slide.target + flkty.x) * -1) / 3
 
-    // flkty.on('scroll', () =>
-    //   flkty.slides.forEach(function (slide, i) {
-    //     const img = flkty.cells[i].element.querySelector('.image')
-    //     const x = ((slide.target + flkty.x) * -1) / 3
-
-    //     return (img.style[transformProp] = `translateX(${x}px)`)
-    //   })
-    // )
+        return (img.style[transformProp] = `translateX(${x}px)`)
+      })
+    )
   }, [])
 
   return (
