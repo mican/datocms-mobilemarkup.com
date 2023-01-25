@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { NetlifyForm, Honeypot, NetlifyFormContext } from 'react-netlify-forms'
 import * as styles from '../styles/contact-form.module.sass'
-
 function TextInput({ type = 'text', name }) {
+  const [value, setValue] = useState('')
   var label = name.charAt(0).toUpperCase() + name.slice(1)
-
   const { handleChange } = NetlifyFormContext
-
   return (
-    <p className={styles.field}>
-      {/* <p className={styles.field + (value && ' active')}> */}
+    <p className={styles.field + (value && ' active')}>
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
