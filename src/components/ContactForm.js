@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NetlifyForm, Honeypot } from 'react-netlify-forms'
 import * as styles from '../styles/contact-form.module.sass'
 
 function TextInput({ type = 'text', name }) {
@@ -23,18 +24,24 @@ function TextInput({ type = 'text', name }) {
   )
 }
 
-export default function ContactForm({ id }) {
+export default function ContactForm() {
   return (
-    <form className={styles.contactForm} name="contact" method="post" data-netlify="true" onSubmit="submit">
-      <input type="hidden" name="form-name" value="contact" />
-      <TextInput name="name" />
-      <TextInput name="email" type="email" />
-      <TextInput name="message" type="textarea" />
-      <p className={styles.field}>
-        <button className={styles.button} type="submit">
-          Send message
-        </button>
-      </p>
-    </form>
+    <NetlifyForm name="Contact" honeypotName="bot-field">
+      {({ success, error }) => (
+        <div className={styles.contactForm}>
+          <Honeypot />
+          {success && <p>Thanks for contacting us!</p>}
+          {error && <p>Sorry, we could not reach our servers. Please try again later.</p>}
+          <TextInput name="name" />
+          <TextInput name="email" type="email" />
+          <TextInput name="message" type="textarea" />
+          <p className={styles.field}>
+            <button className={styles.button} type="submit">
+              Send message
+            </button>
+          </p>
+        </div>
+      )}
+    </NetlifyForm>
   )
 }
