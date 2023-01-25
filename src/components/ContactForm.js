@@ -30,7 +30,7 @@ function TextInput({ type = 'text', name }) {
 export default function ContactForm() {
   return (
     <NetlifyForm name="Contact" honeypotName="bot-field">
-      {({ handleChange, success, error }) => (
+      {({ success, error }) => (
         <div className={styles.contactForm}>
           <Honeypot />
           {success && <p>Thanks for contacting us!</p>}
