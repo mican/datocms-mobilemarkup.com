@@ -14,6 +14,7 @@ function encode(data) {
 
 export default function ServiceForm() {
   const [state, setState] = useState({ service: Object.keys(services)[0], subject: 'SoftKraft enquiry', path: '/contact/' })
+  const [formState, setFormState] = useState('')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,6 +42,8 @@ export default function ServiceForm() {
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
+    setFormState('loading')
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -55,14 +58,15 @@ export default function ServiceForm() {
         window.dataLayer.push({
           event: 'form_sent',
           formName: 'Contact',
-          email: form.elements.email.value,
+          email: state['email'],
           service: services[state['service']]
         })
 
         navigate(form.getAttribute('action'))
         localStorage.removeItem('entry')
+        setFormState('success')
       })
-      .catch(error => alert(error))
+      .catch(error => setFormState('error'))
   }
 
   const handleSelect = e => {
@@ -79,22 +83,15 @@ export default function ServiceForm() {
     e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
-  // const handleSubmit = e => {
-  //   if (false) {
-  //     e.preventDefault()
-  //     navigate('/contact/submitted/')
-  //   }
-  // }
-
   return (
     <form
       name="Contact"
       method="post"
-      action="/thanks/"
+      action="/contact/thank-you/"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-      className={classNames(styles.serviceForm)}
+      className={classNames(styles.serviceForm, styles[formState])}
     >
       <p hidden>
         <label>
@@ -117,6 +114,8 @@ export default function ServiceForm() {
         </p>
       </div>
       <div>
+        {/* {formState === 'success' && <p>Thanks for contacting us!</p>}
+        {formState === 'error' && <p>Sorry, something went wrong</p>} */}
         <p className={styles.formField}>
           <label htmlFor="name">Your name</label>
           <input type="text" name="name" id="name" required onChange={handleName} />

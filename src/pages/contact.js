@@ -12,7 +12,8 @@ export default function ContactPage() {
       <section className={styles.sectionContact}>
         <div className="container">
           {/* <ContactForm /> */}
-          <NetlifyForm />
+          {/* <NetlifyForm /> */}
+          <ServiceForm />
         </div>
       </section>
     </Layout>
