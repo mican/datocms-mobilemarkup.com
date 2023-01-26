@@ -76,8 +76,8 @@ export default function ServiceForm() {
   }
 
   const updateSubject = e => {
-    handleInput(e)
     setState({ ...state, subject: `SoftKraft enquiry from ${e.target.value}` })
+    handleInput(e)
   }
 
   // const handleSubmit = e => {
@@ -119,20 +119,20 @@ export default function ServiceForm() {
       </div>
       <div>
         <p className={styles.formField}>
-          <label htmlFor={'name'}>Your name</label>
-          <input type={'text'} name={'name'} id={'name'} required onChange={updateSubject} />
+          <label htmlFor="name">Your name</label>
+          <input type="text" name="name" id="name" required onChange={updateSubject} />
         </p>
         <p className={styles.formField}>
-          <label htmlFor={'email'}>Email</label>
-          <input type={'email'} name={'email'} id={'email'} required onChange={handleInput} />
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" required onChange={handleInput} />
         </p>
         <p className={styles.formField}>
-          <label htmlFor={'message'}>Message</label>
-          <textarea type={'text'} name={'message'} id={'message'} required rows={7} onChange={handleInput} />
+          <label htmlFor="message">Message</label>
+          <textarea name="message" id="message" required rows={7} onChange={handleInput} />
         </p>
         <p className={styles.formField}>
-          <input type="checkbox" required id={'privacy'} />
-          <label htmlFor={'privacy'}>
+          <input type="checkbox" required id="privacy" />
+          <label htmlFor="provacy">
             I consent processing my personal data according to the{' '}
             <a href="/privacy/" target="_blank">
               Privacy Policy
