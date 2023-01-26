@@ -3,6 +3,7 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import ContactForm from '../components/ContactForm'
 import ServiceForm from '../components/ServiceForm'
+import NetlifyForm from '../components/NetlifyForm'
 import * as styles from '../styles/page-contact.module.sass'
 
 export default function ContactPage() {
@@ -11,7 +12,7 @@ export default function ContactPage() {
       <section className={styles.sectionContact}>
         <div className="container">
           {/* <ContactForm /> */}
-          <ServiceForm />
+          <NetlifyForm />
         </div>
       </section>
     </Layout>
