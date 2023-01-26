@@ -75,9 +75,9 @@ export default function ServiceForm() {
     e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
-  const updateSubject = e => {
-    setState({ ...state, subject: `SoftKraft enquiry from ${e.target.value}` })
-    handleInput(e)
+  const handleName = e => {
+    setState({ ...state, subject: `SoftKraft enquiry from ${e.target.value}`, name: e.target.value })
+    e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
   // const handleSubmit = e => {
@@ -120,7 +120,7 @@ export default function ServiceForm() {
       <div>
         <p className={styles.formField}>
           <label htmlFor="name">Your name</label>
-          <input type="text" name="name" id="name" required onChange={updateSubject} />
+          <input type="text" name="name" id="name" required onChange={handleName} />
         </p>
         <p className={styles.formField}>
           <label htmlFor="email">Email</label>
