@@ -19,7 +19,9 @@ export default function ServiceForm() {
     if (typeof window !== 'undefined') {
       setState({ ...state, path: localStorage.getItem('entry') || '/contact/' })
       window.scrollTo(0, 0)
-
+      window.location.hash.length > 0
+        ? setState({ ...state, service: setService(window.location.hash.substring(1)) || state['service'] })
+        : setState({ ...state, service: getService() || state['service'] })
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'form_start',
@@ -28,6 +30,10 @@ export default function ServiceForm() {
       })
     }
   }, [])
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
 
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value })
@@ -39,10 +45,9 @@ export default function ServiceForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        'form-name': form.getAttribute('name'),
+        formName: form.getAttribute('name'),
         ...state,
-        noInput: 'no input',
-        hiddenInput: 'hidden input no value'
+        service: services[state['service']]
       })
     })
       .then(() => {
@@ -52,7 +57,7 @@ export default function ServiceForm() {
           event: 'form_sent',
           formName: 'Contact',
           email: form.elements.email.value,
-          service: select.options[select.selectedIndex].text
+          service: services[state['service']]
         })
 
         navigate(form.getAttribute('action'))
@@ -62,13 +67,13 @@ export default function ServiceForm() {
   }
 
   const handleSelect = e => {
-    setService(e.target.value)
-    setState({ ...state, service: services[e.target.value] })
+    setState({ ...state, service: setService(e.target.value) })
+    handleChange(e)
   }
 
   const handleInput = e => {
-    e.target.parentNode.classList.toggle('active', e.target.value)
     handleChange(e)
+    e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
   const updateSubject = e => {
@@ -97,17 +102,15 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
-        <input type="hidden" name="form-name" value="SoftKraft" />
-        <input type="hidden" name="subject" value={state['subject']} />
-        <input type="hidden" name="path" value={state['path']} />
-        <input type="hidden" name="hiddenInput" />
+        <input type="hidden" name="subject" />
+        <input type="hidden" name="path" />
       </p>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
-          <select name="service[]" id="service" required onChange={handleSelect}>
+          <select name="service" id="service" value={state['service']} required onChange={handleSelect}>
             {Object.keys(services).map(key => (
-              <option key={key} value={services[key]} selected={key === state['service']}>
+              <option key={key} value={key}>
                 {services[key]}
               </option>
             ))}
