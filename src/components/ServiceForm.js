@@ -45,7 +45,6 @@ export default function ServiceForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
-        formName: form.getAttribute('name'),
         ...state,
         service: services[state['service']]
       })
@@ -90,7 +89,8 @@ export default function ServiceForm() {
 
   return (
     <form
-      name="SoftKraft"
+      form-name="form-name"
+      formName="formName"
       method="post"
       action="/thanks/"
       data-netlify="true"
@@ -102,6 +102,8 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
+        <input type="hidden" name="form-name" value="inline form-name" />
+        <input type="hidden" name="formName" value="inline formName" />
         <input type="hidden" name="subject" />
         <input type="hidden" name="path" />
       </p>
