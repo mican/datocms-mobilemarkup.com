@@ -11,6 +11,7 @@ export default function ContactPage() {
       <section className={styles.sectionContact}>
         <div className="container">
           <ContactForm />
+          <ServiceForm />
         </div>
       </section>
     </Layout>

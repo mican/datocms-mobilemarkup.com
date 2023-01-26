@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { NetlifyForm } from 'react-netlify-forms'
 
 import { navigate } from 'gatsby'
-import Image from '../Image'
 import classNames from 'classnames'
 import { services, getService as getGlobalService, setService as setGlobalService, getCalendlyLink } from './Service.js'
 
-import styles from './contact-form.module.sass'
+import * as styles from '../styles/service-form.module.sass'
 
-export default function ContactForm() {
+export default function ServiceForm() {
   const [path, setPath] = useState('')
   const [subject, setSubject] = useState('')
   const [service, setService] = useState(Object.keys(services)[0])
@@ -68,9 +67,9 @@ export default function ContactForm() {
   }
 
   return (
-    <NetlifyForm name="Contact" onSuccess={onSuccess} onFailure={onFailure}>
+    <NetlifyForm name="Service" onSuccess={onSuccess} onFailure={onFailure}>
       {({ success, error, submitting, handleChange }) => (
-        <div className={classNames(styles.contactForm, { loading: submitting, success: success })}>
+        <div className={classNames(styles.serviceForm, { loading: submitting, success: success })}>
           <div className={styles.formHeader}>
             <h2>Tell us about your&nbsp;project</h2>
             <p className={styles.formField}>
@@ -82,17 +81,6 @@ export default function ContactForm() {
                 ))}
               </select>
             </p>
-            <figure className={styles.headerBg}>
-              {Object.keys(services).map((sv, i) => (
-                <Image
-                  key={i}
-                  alt={sv}
-                  src={'/images/services/' + sv + '.png'}
-                  loading={sv === service ? 'eager' : 'lazy'}
-                  className={classNames(styles.serviceImage, sv === service && styles.activeImage)}
-                />
-              ))}
-            </figure>
           </div>
           <div>
             {/* {success && <p>Thanks for contacting us!</p>} */}
