@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { NetlifyForm } from 'react-netlify-forms'
 
 import { navigate } from 'gatsby'
 import classNames from 'classnames'
-import { services, getService as getGlobalService, setService as setGlobalService, getCalendlyLink } from './Service.js'
+import { services, getService, setService, getCalendlyLink } from './Service.js'
 
 import * as styles from '../styles/service-form.module.sass'
 
@@ -42,7 +41,8 @@ export default function ServiceForm() {
       body: encode({
         'form-name': form.getAttribute('name'),
         ...state,
-        bla: 'sdfasdf'
+        bla: 'sdfasdf',
+        dupa: 'afdasdf'
       })
     })
       .then(() => {
@@ -61,14 +61,14 @@ export default function ServiceForm() {
       .catch(error => alert(error))
   }
 
-  const serviceKeyFrom = value => Object.keys(services).find(key => services[key] === value)
-
   const handleSelect = e => {
-    setState({ ...state, service: setGlobalService(serviceKeyFrom(e.target.value)) || state['service'] })
+    setService(e.target.value)
+    setState({ ...state, service: services[e.target.value] })
   }
 
   const handleInput = e => {
     e.target.parentNode.classList.toggle('active', e.target.value)
+    handleChange(e)
   }
 
   const updateSubject = e => {
@@ -104,7 +104,7 @@ export default function ServiceForm() {
         <p className={styles.formField}>
           <select name="service[]" id="service" required onChange={handleSelect}>
             {Object.keys(services).map(key => (
-              <option key={key} data-value={key} value={services[key]} selected={key === state['service']}>
+              <option key={key} value={services[key]} selected={key === state['service']}>
                 {services[key]}
               </option>
             ))}
