@@ -67,7 +67,6 @@ export default function ServiceForm() {
 
   const handleSelect = e => {
     setState({ ...state, service: setService(e.target.value) || state['service'] })
-    handleChange(e)
   }
 
   const handleInput = e => {
@@ -132,7 +131,7 @@ export default function ServiceForm() {
         </p>
         <p className={styles.formField}>
           <input type="checkbox" required id="privacy" />
-          <label htmlFor="provacy">
+          <label htmlFor="privacy">
             I consent processing my personal data according to the{' '}
             <a href="/privacy/" target="_blank">
               Privacy Policy
