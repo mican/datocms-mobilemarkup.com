@@ -7,29 +7,64 @@ import { services, getService as getGlobalService, setService as setGlobalServic
 
 import * as styles from '../styles/service-form.module.sass'
 
+function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&')
+}
+
 export default function ServiceForm() {
-  const [path, setPath] = useState('')
-  const [subject, setSubject] = useState('')
-  const [service, setService] = useState(Object.keys(services)[0])
+  const [state, setState] = useState({ service: Object.keys(services)[0], subject: 'SoftKraft enquiry', path: '/contact/' })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setPath(localStorage.getItem('entry') || '/contact/')
+      setState({ ...state, path: localStorage.getItem('entry') || '/contact/' })
       window.scrollTo(0, 0)
-      window.location.hash.length > 0 ? setService(setGlobalService(window.location.hash.substring(1)) || service) : setService(getGlobalService() || service)
+
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'form_start',
         formName: 'Contact',
-        service: services[localStorage.getItem('service')]
+        service: state['service']
       })
     }
   }, [])
 
+  const handleChange = e => {
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
+  const handleSubmit = e => {
+    e.preventDefault()
+    const form = e.target
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+        bla: 'sdfasdf'
+      })
+    })
+      .then(() => {
+        var select = form.elements.service
+        window.dataLayer = window.dataLayer || []
+        window.dataLayer.push({
+          event: 'form_sent',
+          formName: 'Contact',
+          email: form.elements.email.value,
+          service: select.options[select.selectedIndex].text
+        })
+
+        navigate(form.getAttribute('action'))
+        localStorage.removeItem('entry')
+      })
+      .catch(error => alert(error))
+  }
+
   const serviceKeyFrom = value => Object.keys(services).find(key => services[key] === value)
 
   const handleSelect = e => {
-    setService(setGlobalService(serviceKeyFrom(e.target.value)) || service)
+    setState({ ...state, service: setGlobalService(serviceKeyFrom(e.target.value)) || state['service'] })
   }
 
   const handleInput = e => {
@@ -38,42 +73,38 @@ export default function ServiceForm() {
 
   const updateSubject = e => {
     handleInput(e)
-    setSubject(`SoftKraft enquiry from ${e.target.value}`)
+    setState({ ...state, subject: `SoftKraft enquiry from ${e.target.value}` })
   }
 
-  const handleSubmit = e => {
-    if (false) {
-      e.preventDefault()
-      navigate('/contact/submitted/')
-    }
-  }
-
-  const onFailure = (response, context) => {
-    console.log(context.formRef.current.elements)
-  }
-
-  const onSuccess = (response, context) => {
-    var select = context.formRef.current.elements.service
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: 'form_sent',
-      formName: 'Contact',
-      email: context.formRef.current.elements.email.value,
-      service: select.options[select.selectedIndex].text
-    })
-
-    navigate('/contact/thank-you/')
-    localStorage.removeItem('entry')
-  }
+  // const handleSubmit = e => {
+  //   if (false) {
+  //     e.preventDefault()
+  //     navigate('/contact/submitted/')
+  //   }
+  // }
 
   return (
-    <form name="SoftKraft" method="post" netlify className={classNames(styles.serviceForm)}>
+    <form
+      name="SoftKraft"
+      method="post"
+      action="/thanks/"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className={classNames(styles.serviceForm)}
+    >
+      <input type="hidden" name="form-name" value="SoftKraft" />
+      <p hidden>
+        <label>
+          Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+        </label>
+      </p>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
           <select name="service[]" id="service" required onChange={handleSelect}>
             {Object.keys(services).map(key => (
-              <option key={key} data-value={key} value={services[key]} selected={key === service}>
+              <option key={key} data-value={key} value={services[key]} selected={key === state['service']}>
                 {services[key]}
               </option>
             ))}
@@ -81,8 +112,6 @@ export default function ServiceForm() {
         </p>
       </div>
       <div>
-        <input type="hidden" id="subject" name="subject" value={subject} r />
-        <input type="hidden" id="path" name="path" value={path} />
         <p className={styles.formField}>
           <label htmlFor={'name'}>Your name</label>
           <input type={'text'} name={'name'} id={'name'} required onChange={updateSubject} />
