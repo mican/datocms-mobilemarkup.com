@@ -85,8 +85,8 @@ export default function ServiceForm() {
           <div>
             {/* {success && <p>Thanks for contacting us!</p>} */}
             {error && <p>Sorry, something went wrong</p>}
-            <input type="hidden" id="subject" name="subject" value={subject} />
-            <input type="hidden" id="path" name="path" value={path} />
+            <input type="hidden" id="subject" name="subject" value={subject} required onChange={handleChange} />
+            <input type="hidden" id="path" name="path" value={path} required onChange={handleChange} />
             <p className={styles.formField}>
               <label htmlFor={'name'}>Your name</label>
               <input type={'text'} name={'name'} id={'name'} required onInput={updateSubject} onChange={handleChange} />
