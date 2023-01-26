@@ -93,11 +93,13 @@ export default function ServiceForm() {
       onSubmit={handleSubmit}
       className={classNames(styles.serviceForm)}
     >
-      <input type="hidden" name="form-name" value="SoftKraft" />
       <p hidden>
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
+        <input type="hidden" name="form-name" value="SoftKraft" />
+        <input type="hidden" name="subject" value={state['subject']} />
+        <input type="hidden" name="path" value={state['path']} />
       </p>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
