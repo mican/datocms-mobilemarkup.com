@@ -17,8 +17,8 @@ export default function ServiceForm() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setState({ ...state, path: localStorage.getItem('entry') || '/contact/' })
       window.scrollTo(0, 0)
+      setState({ ...state, path: localStorage.getItem('entry') || '/contact/' })
       window.location.hash.length > 0
         ? setState({ ...state, service: setService(window.location.hash.substring(1)) || state['service'] })
         : setState({ ...state, service: getService() || state['service'] })
@@ -26,7 +26,7 @@ export default function ServiceForm() {
       window.dataLayer.push({
         event: 'form_start',
         formName: 'Contact',
-        service: state['service']
+        service: services[state['service']]
       })
     }
   }, [])
@@ -45,12 +45,12 @@ export default function ServiceForm() {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
+        'form-name': form.getAttribute('name'),
         ...state,
         service: services[state['service']]
       })
     })
       .then(() => {
-        var select = form.elements.service
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({
           event: 'form_sent',
@@ -66,7 +66,7 @@ export default function ServiceForm() {
   }
 
   const handleSelect = e => {
-    setState({ ...state, service: setService(e.target.value) })
+    setState({ ...state, service: setService(e.target.value) || state['service'] })
     handleChange(e)
   }
 
@@ -89,6 +89,7 @@ export default function ServiceForm() {
 
   return (
     <form
+      name="name"
       form-name="form-name"
       formName="formName"
       method="post"
