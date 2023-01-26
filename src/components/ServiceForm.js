@@ -67,11 +67,11 @@ export default function ServiceForm() {
   }
 
   return (
-    <form name="Service" method="POST" data-netlify="true" className={classNames(styles.serviceForm)}>
+    <form name="SoftKraft" method="POST" data-netlify="true" className={classNames(styles.serviceForm)}>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
-          <select name="service" id="service" required onChange={handleSelect}>
+          <select name="service[]" id="service" required onChange={handleSelect}>
             {Object.keys(services).map(key => (
               <option key={key} data-value={key} value={services[key]} selected={key === service}>
                 {services[key]}
@@ -81,8 +81,6 @@ export default function ServiceForm() {
         </p>
       </div>
       <div>
-        {/* {success && <p>Thanks for contacting us!</p>} */}
-        {/* {error && <p>Sorry, something went wrong</p>} */}
         <input type="hidden" id="subject" name="subject" value={subject} r />
         <input type="hidden" id="path" name="path" value={path} />
         <p className={styles.formField}>
