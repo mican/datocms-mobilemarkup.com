@@ -67,55 +67,51 @@ export default function ServiceForm() {
   }
 
   return (
-    <NetlifyForm name="Service" onSuccess={onSuccess} onFailure={onFailure}>
-      {({ success, error, submitting, handleChange }) => (
-        <div className={classNames(styles.serviceForm, { loading: submitting, success: success })}>
-          <div className={styles.formHeader}>
-            <h2>Tell us about your&nbsp;project</h2>
-            <p className={styles.formField}>
-              <select name="service" id="service" required onInput={handleSelect} onChange={handleChange}>
-                {Object.keys(services).map(key => (
-                  <option key={key} data-value={key} value={services[key]} selected={key === service}>
-                    {services[key]}
-                  </option>
-                ))}
-              </select>
-            </p>
-          </div>
-          <div>
-            {/* {success && <p>Thanks for contacting us!</p>} */}
-            {error && <p>Sorry, something went wrong</p>}
-            <input type="hidden" id="subject" name="subject" value={subject} required onChange={handleChange} />
-            <input type="hidden" id="path" name="path" value={path} required onChange={handleChange} />
-            <p className={styles.formField}>
-              <label htmlFor={'name'}>Your name</label>
-              <input type={'text'} name={'name'} id={'name'} required onInput={updateSubject} onChange={handleChange} />
-            </p>
-            <p className={styles.formField}>
-              <label htmlFor={'email'}>Email</label>
-              <input type={'email'} name={'email'} id={'email'} required onInput={handleInput} onChange={handleChange} />
-            </p>
-            <p className={styles.formField}>
-              <label htmlFor={'message'}>Message</label>
-              <textarea type={'text'} name={'message'} id={'message'} required onInput={handleInput} onChange={handleChange} rows={7} />
-            </p>
-            <p className={styles.formField}>
-              <input type="checkbox" required id={'privacy'} />
-              <label htmlFor={'privacy'}>
-                I consent processing my personal data according to the{' '}
-                <a href="/privacy/" target="_blank">
-                  Privacy Policy
-                </a>
-              </label>
-            </p>
-            <p className={classNames(styles.formField, styles.fieldFlex)}>
-              <button disabled={submitting || success} className={styles.formSubmit} onClick={handleSubmit}>
-                {submitting ? 'Sending...' : 'Send'}
-              </button>
-            </p>
-          </div>
-        </div>
-      )}
-    </NetlifyForm>
+    <form name="Service" method="POST" action="/contact/thank-you/" netlify className={classNames(styles.serviceForm)}>
+      <div className={styles.formHeader}>
+        <h2>Tell us about your&nbsp;project</h2>
+        <p className={styles.formField}>
+          <select name="service" id="service" required onChange={handleSelect}>
+            {Object.keys(services).map(key => (
+              <option key={key} data-value={key} value={services[key]} selected={key === service}>
+                {services[key]}
+              </option>
+            ))}
+          </select>
+        </p>
+      </div>
+      <div>
+        {/* {success && <p>Thanks for contacting us!</p>} */}
+        {/* {error && <p>Sorry, something went wrong</p>} */}
+        <input type="hidden" id="subject" name="subject" value={subject} r />
+        <input type="hidden" id="path" name="path" value={path} />
+        <p className={styles.formField}>
+          <label htmlFor={'name'}>Your name</label>
+          <input type={'text'} name={'name'} id={'name'} required onChange={updateSubject} />
+        </p>
+        <p className={styles.formField}>
+          <label htmlFor={'email'}>Email</label>
+          <input type={'email'} name={'email'} id={'email'} required onChange={handleInput} />
+        </p>
+        <p className={styles.formField}>
+          <label htmlFor={'message'}>Message</label>
+          <textarea type={'text'} name={'message'} id={'message'} required rows={7} onChange={handleInput} />
+        </p>
+        <p className={styles.formField}>
+          <input type="checkbox" required id={'privacy'} />
+          <label htmlFor={'privacy'}>
+            I consent processing my personal data according to the{' '}
+            <a href="/privacy/" target="_blank">
+              Privacy Policy
+            </a>
+          </label>
+        </p>
+        <p className={classNames(styles.formField, styles.fieldFlex)}>
+          <button disabled={false} className={styles.formSubmit}>
+            {false ? 'Sending...' : 'Send'}
+          </button>
+        </p>
+      </div>
+    </form>
   )
 }

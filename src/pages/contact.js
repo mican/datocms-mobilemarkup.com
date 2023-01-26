@@ -10,7 +10,7 @@ export default function ContactPage() {
     <Layout>
       <section className={styles.sectionContact}>
         <div className="container">
-          <ContactForm />
+          {/* <ContactForm /> */}
           <ServiceForm />
         </div>
       </section>
