@@ -6,12 +6,6 @@ import { services, getService, setService, getCalendlyLink } from './Service.js'
 
 import * as styles from '../styles/service-form.module.sass'
 
-function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
-}
-
 export default function ServiceForm() {
   const [state, setState] = useState({ service: Object.keys(services)[0], subject: 'SoftKraft enquiry', path: '/contact/' })
   const [formState, setFormState] = useState('')
@@ -21,13 +15,13 @@ export default function ServiceForm() {
       window.scrollTo(0, 0)
       setState({ ...state, path: localStorage.getItem('entry') || '/contact/' })
       window.location.hash.length > 0
-        ? setState({ ...state, service: setService(window.location.hash.substring(1)) || state['service'] })
-        : setState({ ...state, service: getService() || state['service'] })
+        ? setState({ ...state, service: setService(window.location.hash.substring(1)) || state.service })
+        : setState({ ...state, service: getService() || state.service })
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'form_start',
         formName: 'Contact',
-        service: services[state['service']]
+        service: services[state.service]
       })
     }
   }, [])
@@ -47,19 +41,19 @@ export default function ServiceForm() {
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
+      body: new URLSearchParams({
         'form-name': form.getAttribute('name'),
         ...state,
-        service: services[state['service']]
-      })
+        service: services[state.service]
+      }).toString()
     })
       .then(() => {
         window.dataLayer = window.dataLayer || []
         window.dataLayer.push({
           event: 'form_sent',
           formName: 'Contact',
-          email: state['email'],
-          service: services[state['service']]
+          email: state.email,
+          service: services[state.service]
         })
 
         navigate(form.getAttribute('action'))
@@ -70,7 +64,7 @@ export default function ServiceForm() {
   }
 
   const handleSelect = e => {
-    setState({ ...state, service: setService(e.target.value) || state['service'] })
+    setState({ ...state, service: setService(e.target.value) || state.service })
   }
 
   const handleInput = e => {
@@ -104,7 +98,7 @@ export default function ServiceForm() {
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
-          <select name="service" id="service" value={state['service']} required onChange={handleSelect}>
+          <select name="service" id="service" value={state.service} required onChange={handleSelect}>
             {Object.keys(services).map(key => (
               <option key={key} value={key}>
                 {services[key]}
@@ -138,8 +132,8 @@ export default function ServiceForm() {
           </label>
         </p>
         <p className={classNames(styles.formField, styles.fieldFlex)}>
-          <button disabled={false} className={styles.formSubmit}>
-            {false ? 'Sending...' : 'Send'}
+          <button disabled={formState === 'loading'} className={styles.formSubmit}>
+            {formState === 'loading' ? 'Sending...' : 'Send'}
           </button>
         </p>
       </div>
