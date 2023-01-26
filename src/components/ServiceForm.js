@@ -41,8 +41,8 @@ export default function ServiceForm() {
       body: encode({
         'form-name': form.getAttribute('name'),
         ...state,
-        bla: 'sdfasdf',
-        dupa: 'afdasdf'
+        noInput: 'no input',
+        hiddenInput: 'hidden input no value'
       })
     })
       .then(() => {
@@ -100,6 +100,7 @@ export default function ServiceForm() {
         <input type="hidden" name="form-name" value="SoftKraft" />
         <input type="hidden" name="subject" value={state['subject']} />
         <input type="hidden" name="path" value={state['path']} />
+        <input type="hidden" name="hiddenInput" />
       </p>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
