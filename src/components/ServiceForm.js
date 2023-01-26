@@ -67,7 +67,7 @@ export default function ServiceForm() {
   }
 
   return (
-    <form name="Service" method="POST" action="/contact/thank-you/" netlify className={classNames(styles.serviceForm)}>
+    <form name="Service" method="POST" data-netlify="true" className={classNames(styles.serviceForm)}>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
