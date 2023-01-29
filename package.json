@@ -30,7 +30,7 @@
     "gatsby-source-datocms": "^5.0.4",
     "gatsby-transformer-inline-svg": "^1.2.0",
     "gatsby-transformer-sharp": "^5.4.0",
-    "gsap-trial": "^3.11.4",
+    "gsap-trial": "^3.11.3",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
