@@ -17,7 +17,7 @@ export default function ServiceForm() {
   // - 1 x Glolang
 
   const print = object => {
-    string = ''
+    var string = ''
     for (const [key, value] of Object.entries(object)) {
       string.concat(`- ${value} x ${key}\n`)
     }
