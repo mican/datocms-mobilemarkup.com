@@ -10,6 +10,8 @@ export default function ServiceForm() {
   const [state, setState] = useState({ service: Object.keys(services)[0], subject: 'SoftKraft enquiry', path: '/contact/' })
   const [formState, setFormState] = useState('')
 
+  const object = { 'Front-end': 1, 'Back-end': 2, 'Full-stack': 3, Mobile: 4, QA: 5, DevOps: 6, 'UI/UX': 7, Other: 8 }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0)
@@ -44,7 +46,7 @@ export default function ServiceForm() {
       body: new URLSearchParams({
         'form-name': form.getAttribute('name'),
         ...state,
-        service: services[state.service]
+        message: state.message + '\n' + object
       }).toString()
     })
       .then(() => {
