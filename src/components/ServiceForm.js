@@ -19,7 +19,7 @@ export default function ServiceForm() {
   const print = object => {
     var string = ''
     for (const [key, value] of Object.entries(object)) {
-      string.concat(`- ${value} x ${key}\n`)
+      string += `- ${value} x ${key}\n`
     }
     return string
   }
@@ -47,6 +47,7 @@ export default function ServiceForm() {
     })
       .then(() => {
         setFormState('success')
+        console.log(print(object))
       })
       .catch(error => setFormState('error'))
   }
