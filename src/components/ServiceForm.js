@@ -12,6 +12,18 @@ export default function ServiceForm() {
 
   const object = { 'Front-end': 1, 'Back-end': 2, 'Full-stack': 3, Mobile: 4, QA: 5, DevOps: 6, 'UI/UX': 7, Other: 8 }
 
+  // I need following specialists for 6 months
+  // - 1 x Node.js
+  // - 1 x Glolang
+
+  const print = object => {
+    string = ''
+    for (const [key, value] of Object.entries(object)) {
+      string.concat(`- ${value} x ${key}\n`)
+    }
+    return string
+  }
+
   useEffect(() => {
     console.log(state)
   }, [state])
@@ -30,20 +42,10 @@ export default function ServiceForm() {
       body: new URLSearchParams({
         'form-name': form.getAttribute('name'),
         ...state,
-        message: state.message + '\n' + JSON.stringify(object, null, 2)
+        message: state.message + '\n' + print(object)
       }).toString()
     })
       .then(() => {
-        window.dataLayer = window.dataLayer || []
-        window.dataLayer.push({
-          event: 'form_sent',
-          formName: 'Contact',
-          email: state.email,
-          service: services[state.service]
-        })
-
-        navigate(form.getAttribute('action'))
-        localStorage.removeItem('entry')
         setFormState('success')
       })
       .catch(error => setFormState('error'))
