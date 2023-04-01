@@ -26,16 +26,11 @@ export default function ServiceForm() {
 
   const encode = data => {
     const formData = new FormData()
-    console.log(data)
     Object.keys(data).forEach(k => {
       formData.append(k, data[k])
     })
     return formData
   }
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -50,7 +45,6 @@ export default function ServiceForm() {
     })
       .then(() => {
         setFormState('success')
-        console.log(encode(data))
       })
       .catch(error => setFormState('error'))
   }
@@ -88,9 +82,11 @@ export default function ServiceForm() {
   }
 
   const removeFile = e => {
-    e.target.files[0] = null
+    e.preventDefault()
+    const fileInput = e.target.form.elements.file
     const fileAttached = e.target.parentNode
     fileAttached.style.display = 'none'
+    fileInput.files = null
     setData({ ...data, file: {} })
   }
 
