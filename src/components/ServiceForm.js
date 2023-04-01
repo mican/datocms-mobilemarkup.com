@@ -18,7 +18,7 @@ export default function ServiceForm() {
     setFormState('loading')
 
     const formData = new FormData()
-    Object.entries(values).forEach(([key, value]) => {
+    Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value)
     })
 
