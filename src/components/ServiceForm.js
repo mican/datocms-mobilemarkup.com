@@ -7,8 +7,16 @@ import { services, getService, setService, getCalendlyLink } from './Service.js'
 import * as styles from '../styles/service-form.module.sass'
 
 export default function ServiceForm() {
-  const [data, setData] = useState({ subject: 'SoftKraft application', path: '/contact/', file: null })
+  const [data, setData] = useState({ 'form-name': 'Application', subject: 'SoftKraft application', path: '/contact/', file: {} })
   const [formState, setFormState] = useState('')
+
+  const encode = data => {
+    const formData = new FormData()
+    Object.keys(data).forEach(k => {
+      formData.append(k, data[k])
+    })
+    return formData
+  }
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -17,13 +25,8 @@ export default function ServiceForm() {
     e.preventDefault()
     setFormState('loading')
 
-    const formData = new FormData()
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value)
-    })
-
     fetch('/', {
-      body: formData,
+      body: encode(data),
       method: 'POST'
     })
       .then(() => {
@@ -92,6 +95,18 @@ export default function ServiceForm() {
         <input type="hidden" name="subject" />
         <input type="hidden" name="path" />
       </p>
+      <div className={styles.formHeader}>
+        <h2>Tell us about your&nbsp;project</h2>
+        <p className={styles.formField}>
+          <select name="service" id="service" value={data.service} required onChange={handleSelect}>
+            {Object.keys(services).map(key => (
+              <option key={key} value={key}>
+                {services[key]}
+              </option>
+            ))}
+          </select>
+        </p>
+      </div>
       <div>
         {/* {formState === 'success' && <p>Thanks for contacting us!</p>}
         {formState === 'error' && <p>Sorry, something went wrong</p>} */}
@@ -102,6 +117,10 @@ export default function ServiceForm() {
         <p className={styles.formField}>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" required onChange={handleInput} />
+        </p>
+        <p className={styles.formField}>
+          <label htmlFor="message">Message</label>
+          <textarea name="message" id="message" required rows={7} onChange={handleInput} />
         </p>
         <p className={classNames(styles.formField, 'file')}>
           <input type="file" name="file" id="file" onChange={handleFile} />
