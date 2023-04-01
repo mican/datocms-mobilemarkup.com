@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
 import classNames from 'classnames'
 import { services, getService, setService, getCalendlyLink } from './Service.js'
-import { handleFile, removeFile } from '../utils/form'
 
 import * as styles from '../styles/service-form.module.sass'
 
 export default function ServiceForm() {
-  const [data, setData] = useState({ 'form-name': 'Contact', subject: 'SoftKraft enquiry', path: '/contact/' })
+  const [data, setData] = useState({ 'form-name': 'Contact', subject: 'SoftKraft enquiry', path: '/contact/', file: {} })
   const [formState, setFormState] = useState('')
 
   // const object = { 'Front-end': 1, 'Back-end': 2, 'Full-stack': 3, Mobile: 4, QA: 5, DevOps: 6, 'UI/UX': 7, Other: 8 }
@@ -27,6 +26,7 @@ export default function ServiceForm() {
 
   const encode = data => {
     const formData = new FormData()
+    console.log(data)
     Object.keys(data).forEach(k => {
       formData.append(k, data[k])
     })
@@ -42,7 +42,6 @@ export default function ServiceForm() {
   }
   const handleSubmit = e => {
     e.preventDefault()
-    const form = e.target
     setFormState('loading')
 
     fetch('/', {
@@ -51,7 +50,7 @@ export default function ServiceForm() {
     })
       .then(() => {
         setFormState('success')
-        console.log(new FormData(form))
+        console.log(encode(data))
       })
       .catch(error => setFormState('error'))
   }
@@ -70,12 +69,37 @@ export default function ServiceForm() {
     e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
+  const bytesToSize = bytes => {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+    if (bytes === 0) return '0 Byte'
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+    return Math.round(bytes / Math.pow(1024, i), 0) + ' ' + sizes[i]
+  }
+
+  const handleFile = e => {
+    const file = e.target.files[0]
+    const fileAttached = e.target.parentNode.querySelector('span')
+    fileAttached.style.display = file ? 'block' : 'none'
+    if (file) {
+      fileAttached.childNodes[0].textContent = file.name
+      fileAttached.dataset.size = bytesToSize(file.size)
+    }
+    setData({ ...data, file })
+  }
+
+  const removeFile = e => {
+    e.target.files[0] = null
+    const fileAttached = e.target.parentNode
+    fileAttached.style.display = 'none'
+    setData({ ...data, file: {} })
+  }
+
   return (
     <form
       name="Contact"
       method="post"
       action="/contact/thank-you/"
-      enctype="multipart/form-data"
+      encType="multipart/form-data"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
