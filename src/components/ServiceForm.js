@@ -8,29 +8,37 @@ import { handleFile, removeFile } from '../utils/form'
 import * as styles from '../styles/service-form.module.sass'
 
 export default function ServiceForm() {
-  const [state, setState] = useState({ service: Object.keys(services)[0], subject: 'SoftKraft enquiry', path: '/contact/' })
+  const [data, setData] = useState({ 'form-name': 'Contact', subject: 'SoftKraft enquiry', path: '/contact/' })
   const [formState, setFormState] = useState('')
 
-  const object = { 'Front-end': 1, 'Back-end': 2, 'Full-stack': 3, Mobile: 4, QA: 5, DevOps: 6, 'UI/UX': 7, Other: 8 }
+  // const object = { 'Front-end': 1, 'Back-end': 2, 'Full-stack': 3, Mobile: 4, QA: 5, DevOps: 6, 'UI/UX': 7, Other: 8 }
 
-  // I need following specialists for 6 months
-  // - 1 x Node.js
-  // - 1 x Glolang
+  // // I need following specialists for 6 months
+  // // - 1 x Node.js
+  // // - 1 x Glolang
 
-  const print = object => {
-    var string = ''
-    for (const [key, value] of Object.entries(object)) {
-      string += `- ${value} x ${key}\n`
-    }
-    return string
+  // const print = object => {
+  //   var string = ''
+  //   for (const [key, value] of Object.entries(object)) {
+  //     string += `- ${value} x ${key}\n`
+  //   }
+  //   return string
+  // }
+
+  const encode = data => {
+    const formData = new FormData()
+    Object.keys(data).forEach(k => {
+      formData.append(k, data[k])
+    })
+    return formData
   }
 
   useEffect(() => {
-    console.log(state)
-  }, [state])
+    console.log(data)
+  }, [data])
 
   const handleChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value })
+    setData({ ...data, [e.target.name]: e.target.value })
   }
   const handleSubmit = e => {
     e.preventDefault()
@@ -38,23 +46,18 @@ export default function ServiceForm() {
     setFormState('loading')
 
     fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        'form-name': form.getAttribute('name'),
-        ...state,
-        message: state.message + '\n' + print(object)
-      }).toString()
+      body: encode(data),
+      method: 'POST'
     })
       .then(() => {
         setFormState('success')
-        console.log(print(object))
+        console.log(new FormData(form))
       })
       .catch(error => setFormState('error'))
   }
 
   const handleSelect = e => {
-    setState({ ...state, service: setService(e.target.value) || state.service })
+    setData({ ...data, service: setService(e.target.value) || data.service })
   }
 
   const handleInput = e => {
@@ -63,7 +66,7 @@ export default function ServiceForm() {
   }
 
   const handleName = e => {
-    setState({ ...state, subject: `SoftKraft enquiry from ${e.target.value}`, name: e.target.value })
+    setData({ ...data, subject: `SoftKraft enquiry from ${e.target.value}`, name: e.target.value })
     e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
@@ -89,7 +92,7 @@ export default function ServiceForm() {
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
         <p className={styles.formField}>
-          <select name="service" id="service" value={state.service} required onChange={handleSelect}>
+          <select name="service" id="service" value={data.service} required onChange={handleSelect}>
             {Object.keys(services).map(key => (
               <option key={key} value={key}>
                 {services[key]}
