@@ -10,14 +10,6 @@ export default function ServiceForm() {
   const [data, setData] = useState({ 'form-name': 'Application', subject: 'SoftKraft application', path: '/contact/', file: {} })
   const [formState, setFormState] = useState('')
 
-  const encode = data => {
-    const formData = new FormData()
-    Object.keys(data).forEach(k => {
-      formData.append(k, data[k])
-    })
-    return formData
-  }
-
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
@@ -25,8 +17,13 @@ export default function ServiceForm() {
     e.preventDefault()
     setFormState('loading')
 
+    const formData = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
+
     fetch('/', {
-      body: encode(data),
+      body: formData,
       method: 'POST'
     })
       .then(() => {
@@ -78,7 +75,7 @@ export default function ServiceForm() {
 
   return (
     <form
-      name="Application"
+      name="FormApplication"
       method="post"
       action="/contact/thank-you/"
       encType="multipart/form-data"
@@ -91,7 +88,7 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
-        <input type="hidden" name="form-name" value="Application" />
+        <input type="hidden" name="form-name" value="InputApplication" />
         <input type="hidden" name="subject" />
         <input type="hidden" name="path" />
       </p>
@@ -111,7 +108,7 @@ export default function ServiceForm() {
         {/* {formState === 'success' && <p>Thanks for contacting us!</p>}
         {formState === 'error' && <p>Sorry, something went wrong</p>} */}
         <p className={styles.formField}>
-          <label htmlFor="name">Your name</label>
+          <label htmlFor="name">Your name 15:26</label>
           <input type="text" name="name" id="name" required onChange={handleName} />
         </p>
         <p className={styles.formField}>
