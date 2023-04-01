@@ -75,7 +75,7 @@ export default function ServiceForm() {
 
   return (
     <form
-      // name="Contact"
+      name="Application"
       method="post"
       action="/contact/thank-you/"
       encType="multipart/form-data"
