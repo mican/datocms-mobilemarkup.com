@@ -7,7 +7,7 @@ import { services, getService, setService, getCalendlyLink } from './Service.js'
 import * as styles from '../styles/service-form.module.sass'
 
 export default function ServiceForm() {
-  const [data, setData] = useState({ 'form-name': 'Application', subject: 'SoftKraft application', path: '/contact/', file: null })
+  const [data, setData] = useState({ subject: 'SoftKraft application', path: '/contact/', file: null })
   const [formState, setFormState] = useState('')
 
   const handleChange = e => {
@@ -88,9 +88,9 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
-        {/* <input type="hidden" name="form-name" value="Contact" />
+        <input type="hidden" name="form-name" value="Application" />
         <input type="hidden" name="subject" />
-        <input type="hidden" name="path" /> */}
+        <input type="hidden" name="path" />
       </p>
       <div>
         {/* {formState === 'success' && <p>Thanks for contacting us!</p>}
