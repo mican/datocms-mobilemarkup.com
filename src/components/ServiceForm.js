@@ -88,9 +88,9 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
-        {/* <input type="hidden" name="form-name" value="Contact" /> */}
-        {/* <input type="hidden" name="subject" /> */}
-        {/* <input type="hidden" name="path" /> */}
+        {/* <input type="hidden" name="form-name" value="Contact" />
+        <input type="hidden" name="subject" />
+        <input type="hidden" name="path" /> */}
       </p>
       <div>
         {/* {formState === 'success' && <p>Thanks for contacting us!</p>}
@@ -102,6 +102,15 @@ export default function ServiceForm() {
         <p className={styles.formField}>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" required onChange={handleInput} />
+        </p>
+        <p className={classNames(styles.formField, 'file')}>
+          <input type="file" name="file" id="file" onChange={handleFile} />
+          <label htmlFor="file" className={styles.fileLabel}>
+            Attach your CV
+          </label>
+          <span className={styles.fileAttached} data-size="0 kB">
+            No file selected <button onClick={removeFile}>Remove</button>
+          </span>
         </p>
         <p className={classNames(styles.formField, styles.fieldFlex)}>
           <button disabled={formState === 'loading'} className={styles.formSubmit}>
