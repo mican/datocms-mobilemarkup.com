@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
 import classNames from 'classnames'
 import { services, getService, setService, getCalendlyLink } from './Service.js'
+import { handleFile, removeFile } from '../utils/form'
 
 import * as styles from '../styles/service-form.module.sass'
 
@@ -71,6 +72,7 @@ export default function ServiceForm() {
       name="Contact"
       method="post"
       action="/contact/thank-you/"
+      enctype="multipart/form-data"
       data-netlify="true"
       data-netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
@@ -111,14 +113,14 @@ export default function ServiceForm() {
           <label htmlFor="message">Message</label>
           <textarea name="message" id="message" required rows={7} onChange={handleInput} />
         </p>
-        <p className={styles.formField}>
-          <input type="checkbox" required id="privacy" />
-          <label htmlFor="privacy">
-            I consent processing my personal data according to the{' '}
-            <a href="/privacy/" target="_blank">
-              Privacy Policy
-            </a>
+        <p className={classNames(styles.formField, 'file')}>
+          <input type="file" name="file" id="file" onChange={handleFile} />
+          <label htmlFor="file" className={styles.fileLabel}>
+            Attach your CV
           </label>
+          <span className={styles.fileAttached} data-size="0 kB">
+            No file selected <button onClick={removeFile}>Remove</button>
+          </span>
         </p>
         <p className={classNames(styles.formField, styles.fieldFlex)}>
           <button disabled={formState === 'loading'} className={styles.formSubmit}>
