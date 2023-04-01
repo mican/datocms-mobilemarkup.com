@@ -42,7 +42,7 @@ export default function ServiceForm() {
   }
 
   const handleName = e => {
-    setData({ ...data, subject: `SoftKraft enquiry from ${e.target.value}`, name: e.target.value })
+    setData({ ...data, subject: `SoftKraft application from ${e.target.value}`, name: e.target.value })
     e.target.parentNode.classList.toggle('active', e.target.value)
   }
 
@@ -75,7 +75,7 @@ export default function ServiceForm() {
 
   return (
     <form
-      name="FormApplication"
+      name="Application"
       method="post"
       action="/contact/thank-you/"
       encType="multipart/form-data"
@@ -88,9 +88,6 @@ export default function ServiceForm() {
         <label>
           Don’t fill this out: <input name="bot-field" onChange={handleChange} />
         </label>
-        <input type="hidden" name="form-name" value="InputApplication" />
-        <input type="hidden" name="subject" />
-        <input type="hidden" name="path" />
       </p>
       <div className={styles.formHeader}>
         <h2>Tell us about your&nbsp;project</h2>
