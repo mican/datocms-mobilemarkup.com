@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import { NetlifyForm, Honeypot, useNetlifyFormContext } from 'react-netlify-forms'
 import * as styles from '../styles/contact-form.module.sass'
 
 function TextInput({ type = 'text', name }) {
-  const [value, setValue] = useState('')
   var label = name.charAt(0).toUpperCase() + name.slice(1)
+  const [value, setValue] = useState('')
+  const { handleChange } = useNetlifyFormContext()
 
   const handleInput = e => {
-    setValue(e.target.value)
+    const { value } = e.target
+    setValue(value)
+    handleChange(e)
   }
 
   return (
@@ -15,7 +19,7 @@ function TextInput({ type = 'text', name }) {
         {label}
       </label>
       {type === 'textarea' ? (
-        <textarea className={styles.textarea} cols="50" rows="4" name={name} id={name} onChange={handleInput}></textarea>
+        <textarea className={styles.textarea} cols="50" rows="4" type="text" name={name} id={name} onChange={handleInput}></textarea>
       ) : (
         <input className={styles.textInput} type={type} name={name} id={name} onChange={handleInput} required />
       )}
@@ -23,18 +27,24 @@ function TextInput({ type = 'text', name }) {
   )
 }
 
-export default function ContactForm({ id }) {
+export default function ContactForm() {
   return (
-    <form className={styles.contactForm} name="contact" method="post" data-netlify="true" onSubmit="submit">
-      <input type="hidden" name="form-name" value="contact" />
-      <TextInput name="name" />
-      <TextInput name="email" type="email" />
-      <TextInput name="message" type="textarea" />
-      <p className={styles.field}>
-        <button className={styles.button} type="submit">
-          Send message
-        </button>
-      </p>
-    </form>
+    <NetlifyForm name="Contact" honeypotName="bot-field">
+      {({ handleChange, success, error }) => (
+        <div className={styles.contactForm}>
+          <Honeypot />
+          {success && <p>Thanks for contacting us!</p>}
+          {error && <p>Sorry, we could not reach our servers. Please try again later.</p>}
+          <TextInput name="name" />
+          <TextInput name="email" type="email" />
+          <TextInput name="message" type="textarea" />
+          <p className={styles.field}>
+            <button className={styles.button} type="submit">
+              Send message
+            </button>
+          </p>
+        </div>
+      )}
+    </NetlifyForm>
   )
 }
