@@ -1,0 +1,295 @@
+.service-form
+  box-shadow: 0px 1px 4px rgba(17, 49, 90, 0.06), 0px 24px 24px -22px rgba(17, 49, 90, 0.12)
+  border-radius: 0.5rem
+  overflow: hidden
+
+  background-color: #ededed
+  color: #555555
+  font-size: 1rem
+  font-weight: 400
+  letter-spacing: 0.01em
+  line-height: 1.5
+  padding: 1rem
+  @media ( min-width: 576px )
+    padding: 3rem 2rem 2rem
+
+  // &:not(:first-child)
+  //   padding-top: 1rem
+  //   border-top-left-radius: 0
+  //   border-top-right-radius: 0
+
+  &:global(.loading)
+    position: relative
+    &:after
+      content: ''
+      position: absolute
+      width: 100%
+      height: 100%
+      cursor: wait
+      z-index: 9999
+      top: 0
+      left: 0
+
+  label
+    padding: .5rem 1rem
+    display: block
+    width: 100%
+    transition: all .25s ease
+    color: #555555
+    border: 1px solid transparent
+
+  [type=text], [type=email], textarea, select, [type=checkbox]
+
+    border-radius: 0.5rem
+    border: 1px solid #C7C7C7
+    padding: .5rem 1rem
+    display: block
+    width: 100%
+    color: #555555
+
+    background:
+      color: #fff
+      position: right 15px center
+      repeat: no-repeat
+    &:focus
+      outline: none
+      // outline: 2px solid rgba(#7BE8C6, 1)
+      box-shadow: 0 0 0 2px rgba(#7BE8C6, 1)
+
+  [type=checkbox]
+    appearance: none
+    border-radius: 2px
+    width: 20px
+    height: 20px
+    padding: 0
+    display: inline-block
+    vertical-align: middle
+    cursor: pointer
+    background-position: center
+    position: absolute
+    & + label
+      opacity: 1!important
+      line-height: 20px
+      margin: 0 0 0 1.75rem
+      border: 0
+      padding: 0
+      width: fit-content
+      cursor: pointer
+      user-select: none
+      position: relative!important
+      pointer-events: auto!important
+      a
+        font-weight: bold
+    &:checked
+      border-color: #7AE8C5
+      background-color: #7AE8C5
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='9' fill='none'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M10.65.24a1 1 0 0 1 .11 1.41l-6 7a1 1 0 0 1-1.315.182l-3-2a1 1 0 1 1 1.11-1.664l2.263 1.508L9.24.35a1 1 0 0 1 1.41-.108Z' clip-rule='evenodd'/%3E%3C/svg%3E")
+
+  select
+    appearance: none
+    font-weight: 600
+    background:
+      image: url("data:image/svg+xml,%3Csvg width='14' height='8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m7 5.172 4.95-4.95 1.414 1.414L7 8 .636 1.636 2.05.222 7 5.172Z' fill='%23BBBDC2'/%3E%3C/svg%3E")
+      position: right 1rem center
+    min-width: 18em
+
+  @media ( min-width: 576px )
+    textarea
+      min-height: 13em
+
+  [name=name]
+    background-image: url("data:image/svg+xml,%3Csvg width='18' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 15c3.662 0 6.865 1.575 8.607 3.925l-1.842.871C14.347 18.116 11.847 17 9 17c-2.847 0-5.347 1.116-6.765 2.796l-1.841-.872C2.136 16.574 5.338 15 9 15ZM9 0a5 5 0 0 1 5 5v3a5 5 0 0 1-4.783 4.995L9 13a5 5 0 0 1-5-5V5A5 5 0 0 1 8.783.005L9 0Zm0 2a3 3 0 0 0-2.995 2.824L6 5v3a3 3 0 0 0 5.995.176L12 8V5a3 3 0 0 0-3-3Z' fill='%23BBBDC2'/%3E%3C/svg%3E")
+  [name=email]
+    background-image: url("data:image/svg+xml,%3Csvg width='22' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 17.007a1 1 0 0 1-.992.993H2.992A.993.993 0 0 1 2 17.007V16h18V4.3l-8 7.2-10-9V1a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v16.007ZM4.434 2 12 8.81 19.566 2H4.434ZM0 12h8v2H0v-2Zm0-5h5v2H0V7Z' fill='%23BBBDC2'/%3E%3C/svg%3E")
+
+  label[for=file]
+    background: #FAFAFA
+    border: 1px dashed #C7C7C7
+    border-radius: 8px
+    padding: .75rem 1rem
+    text-align: center
+    opacity: 1!important
+    &:after
+      content: url("data:image/svg+xml,%3Csvg width='17' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 11.5V6a4 4 0 0 0-8 0v5.5a6.5 6.5 0 0 0 13 0V2h2v9.5a8.5 8.5 0 1 1-17 0V6a6 6 0 0 1 12 0v5.5a3.5 3.5 0 1 1-7 0V6h2v5.5a1.5 1.5 0 0 0 3 0Z' fill='%23555'/%3E%3C/svg%3E")
+      vertical-align: middle
+      margin: -.25rem 1rem
+      display: inline-block
+
+  input[type=file]
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    opacity: 0
+    z-index: 10
+    cursor: pointer
+    &:focus + label
+      box-shadow: 0 0 0 2px rgba(#7BE8C6, 1)
+      // outline: 2px solid rgba(#7BE8C6, 1)
+
+.file-attached
+  display: none
+  background: #F5F5F5
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  padding: .75rem 2.5rem .75rem 1rem
+  border-radius: .5rem
+  text-overflow: ellipsis
+  white-space: nowrap
+  overflow: hidden
+  &:after
+    content: '(' attr(data-size) ')'
+    color: #757575
+    font-size: 0.875rem
+    margin-left: .5rem
+
+  button
+    display: block
+    overflow: hidden
+    height: 48px
+    width: 48px
+    appearance: none
+    border: 0
+    position: absolute
+    top: 0
+    right: 0
+    text-indent: -999px
+    z-index: 10
+    border-radius: .5rem
+    background:
+      color: transparent
+      image: url("data:image/svg+xml,%3Csvg width='14' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m7 5.586 4.95-4.95 1.414 1.414L8.414 7l4.95 4.95-1.414 1.414L7 8.414l-4.95 4.95L.636 11.95 5.586 7 .636 2.05 2.05.636 7 5.586Z' fill='%23424242'/%3E%3C/svg%3E")
+      repeat: no-repeat
+      position: center
+    &:focus, &:active
+      box-shadow: 0 0 0 2px rgba(#7BE8C6, 1)
+      outline: 0
+
+.form-header
+  position: relative
+
+  overflow: hidden
+  background-color: white
+  padding: 2rem 1rem 2rem
+  margin: -1rem -1rem 1rem
+  @media ( min-width: 576px )
+    padding: 3rem 2rem 1rem
+    margin: -3rem -2rem 1rem
+  h2
+    margin-left: 1rem
+    margin-bottom: 1.5rem
+    font-weight: 600
+
+    line-height: (44/36)
+    letter-spacing: -0.022em
+    min-height: 3rem
+    font-size: 1.5rem
+    @media(min-width: 992px)
+      font-size: 2rem
+    @media(min-width: 1200px)
+      font-size: 36px
+  > *
+    position: relative
+    z-index: 1
+  > h2
+    padding-right: 40%
+  > p
+    max-width: 20rem
+
+.header-bg
+  position: absolute
+  top: 0
+  right: 0
+  height: 100%
+  width: 100%
+  max-width: 30rem
+  margin: 0
+  z-index: 0
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 40%
+    background-image: linear-gradient(to right, rgba(white, 1) 50%, rgba(white,0))
+    z-index: 10
+
+.serviceImage
+  object-fit: cover
+  object-position: top right!important
+  opacity: 0
+  margin: 0
+  display: block
+  height: 100%
+  width: 100%
+  position: absolute
+  transition: opacity 2s ease
+
+.activeImage
+  opacity: 1
+
+.form-field
+  position: relative
+  label:not([for='file']):not([for='privacy'])
+    position: absolute
+    pointer-events: none
+  &:focus-within
+    label
+      opacity: .25
+  &[class*='active']
+    label:not([for=file])
+      transform: translateX(1rem)
+      opacity: 0
+  & + .form-field
+    margin-top: 1rem
+  &:last-of-type
+    margin-bottom: 0
+
+.field-flex
+  display: flex
+  align-items: center
+
+.form-submit
+  flex: 1
+
+  &:focus
+    outline: 0
+    box-shadow: 0 0 0 2px rgba(#7BE8C6, 1)
+
+.form-divider
+  margin: 0 1.75rem
+  font-weight: 400
+  font-size: 16px
+  line-height: 24px
+
+  letter-spacing: -0.011em
+  color: #616161
+  position: relative
+  display: inline-flex
+
+  padding: 0 .5rem
+  &:before, &:after
+    content: ''
+    position: absolute
+    top: 50%
+    width: .75rem
+    border-top: 1px solid rgba(22, 44, 107, 0.1)
+  &:before
+    right: 100%
+  &:after
+    left: 100%
+
+.form-link
+
+  @media(min-width: 992px)
+    font-size: 20px
+    line-height: 24px
+    letter-spacing: 0.02em
+  &:after
+    content: none
